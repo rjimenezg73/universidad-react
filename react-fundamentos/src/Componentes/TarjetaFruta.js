@@ -1,4 +1,5 @@
 import React from "react";
+import './TarjetaFruta.css';
 
 class TarjetaFruta extends React.Component {
   state = {
@@ -24,23 +25,9 @@ class TarjetaFruta extends React.Component {
   };
 
   render() {
-    const styles = {
-      border: "1px solid black",
-      marginBottom: "1em",
-      borderRadius: "0.5em",
-      padding: "1em",
-      background:
-        this.state.cantidad > 0
-          ? "green"
-          : this.state.cantidad < 0
-          ? "red"
-          : "#FFF",
-      color:
-        this.state.cantidad > 0 || this.state.cantidad < 0 ? "#FFF" : "#000",
-    };
-
+    const hasItems = this.state.cantidad > 0;
     return (
-      <div style={styles}>
+      <div className="TarjetaFruta">
         <h3>{this.props.name}</h3>
         <hr />
         <div>Cantidad: {this.state.cantidad}</div>
