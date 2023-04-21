@@ -1,10 +1,38 @@
-// Iterando propiedades de objetos con React
+// Entendiendo las Refs
 import React, {Component} from 'react';
 
-const users = [
-  {id: 1, name: 'Gerardo Gallegos', country: 'Mexico', twitter: '@luxfennix', youtube: 'tecs.ninja'},
-  {id: 2, name: 'Pedrito Aparicio', country: 'Mexico', twitter: '@perico69', youtube: 'pedro.bean'}
-]
+class Entrada extends Component{
+
+  constructor() {
+    super()
+
+    this.entrada = React.createRef()
+  }
+
+  focus = () => {
+    this.entrada.current.focus();
+  };
+
+  blur = () => {
+    this.entrada.current.blur();
+  };
+
+  render(){
+    return(
+      <div>
+        <input type='text' ref={this.entrada}></input>
+        <button onClick={this.focus}>
+          Focus
+        </button> 
+        <button onClick={this.blur}>
+          Blur
+        </button>
+      </div>
+    );
+  }
+}
+
+
 class App extends Component{
 
   
@@ -15,14 +43,8 @@ class App extends Component{
     return(
       
       <div>
-        <h3>Iterando🌟</h3>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              {user.name}
-            </li>
-          ))}
-        </ul>
+        <h1>React refs 🦄</h1>
+        <Entrada />
       </div>
     );
   }
