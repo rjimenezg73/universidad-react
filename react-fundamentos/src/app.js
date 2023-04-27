@@ -1,4 +1,4 @@
-// Manejo de formularios en React - Inputs no controlados Formularios
+// Manejo de formularios en React - Inputs controlados con React
 import React, {Component} from 'react';
 
 // Esta es la forma correcta de ingresar un emoji
@@ -8,42 +8,48 @@ const Unicorn = () => (
   </span>
 );
 
-class InputNoControlado extends Component{
+class InputControlado extends Component{
+  state = {
+    text: '',
+    tieneError: false,
+    color: '#E8E8E8',
+  }
 
-  handleSubmit = (event) => {
-    event.preventDefault(); // Esto permite que se mantengan en pantalla los datos y no envie inmediatamente
-    const nombre = event.target[0].value;
-    const email = event.target[1].value;
+  actualizar = (event) => {
+    const text = event.target.value;
+    const tieneError = text !== '' && text.length < 5;
+    let color = 'green';
 
-    // Manejo de datos
-    this.props.onSend({nombre, email});
+    if(text.trim() === ''){
+      color = '#E8E8E8'
+    }
+    if(text.trim() !== '' && text.length < 5){
+      color = 'red'
+    }
+  
+    this.setState({text, color});
+    console.log(text);
   }
 
   render(){
+    const styles = {
+      border: `1px solid ${this.state.color}`,
+      padding: '0.3em 0.6 em',
+      outline: 'none',
+    }
+
     return(
-      <form onSubmit={this.handleSubmit}>
-        <input 
-          type='text'
-          placeholder='Nombre...'
-        />
-        <input 
-          type='text'
-          placeholder='E-mail...'
-        />
-        <button>
-          Enviar
-        </button>
-      </form>
-    )
+      <input 
+        type='text'
+        value={this.state.text}
+        onChange={this.actualizar}
+        style={styles}
+      />
+    );
   }
 }
 
 class App extends Component{
-
-  send = (data) => {
-    console.log(data);
-  }
-
   
   render(){
 
@@ -51,11 +57,9 @@ class App extends Component{
       
       <div>
         <h1>
-          Inputs NO controlados Formularios <Unicorn />
+          Inputs Controlados <Unicorn />
         </h1>
-        <InputNoControlado 
-          onSend={this.send}
-        />
+        <InputControlado />
       </div>
     );
   }
