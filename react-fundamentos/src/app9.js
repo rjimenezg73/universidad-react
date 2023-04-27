@@ -1,4 +1,4 @@
-// Manejo de formularios en React - Inputs no controlados Formularios
+// Manejo de formularios en React - Inputs no controlados con Refs
 import React, {Component} from 'react';
 
 // Esta es la forma correcta de ingresar un emoji
@@ -9,11 +9,12 @@ const Unicorn = () => (
 );
 
 class InputNoControlado extends Component{
+  nombre = React.createRef();
+  email = React.createRef();
 
-  handleSubmit = (event) => {
-    event.preventDefault(); // Esto permite que se mantengan en pantalla los datos y no envie inmediatamente
-    const nombre = event.target[0].value;
-    const email = event.target[1].value;
+  handleClick = () => {
+    const nombre = this.nombre.current.value;
+    const email = this.email.current.value;
 
     // Manejo de datos
     this.props.onSend({nombre, email});
@@ -21,19 +22,21 @@ class InputNoControlado extends Component{
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <input 
           type='text'
+          ref={this.nombre}
           placeholder='Nombre...'
         />
         <input 
           type='text'
+          ref={this.email}
           placeholder='E-mail...'
         />
-        <button>
+        <button onClick={this.handleClick}>
           Enviar
         </button>
-      </form>
+      </div>
     )
   }
 }
@@ -51,7 +54,7 @@ class App extends Component{
       
       <div>
         <h1>
-          Inputs NO controlados Formularios <Unicorn />
+          Inputs NO controlados Refs <Unicorn />
         </h1>
         <InputNoControlado 
           onSend={this.send}
