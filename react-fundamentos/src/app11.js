@@ -1,4 +1,4 @@
-// Manejo de formularios en React - Propagacion de datos con inputs controlados
+// Manejo de formularios en React - Inputs controlados con React
 import React, {Component} from 'react';
 
 // Esta es la forma correcta de ingresar un emoji
@@ -28,9 +28,7 @@ class InputControlado extends Component{
     }
   
     this.setState({text, color});
-
-    // Propagando datos al padre
-    this.props.onChange(this.props.name, text)
+    console.log(text);
   }
 
   render(){
@@ -46,24 +44,12 @@ class InputControlado extends Component{
         value={this.state.text}
         onChange={this.actualizar}
         style={styles}
-        placeholder={this.props.placeholder}
       />
     );
   }
 }
 
 class App extends Component{
-
-  state = {
-    name: '',
-    email: '',
-  }
-
-  actualizar = (name, text) => {
-    this.setState({
-      [name]: text,
-    })
-  }
   
   render(){
 
@@ -71,18 +57,9 @@ class App extends Component{
       
       <div>
         <h1>
-          Propagación de Datos con Inputs Controlados <Unicorn />
+          Inputs Controlados <Unicorn />
         </h1>
-        <InputControlado 
-          onChange = {this.actualizar}
-          name = 'name'
-          placeholder='Nombre completo...' 
-        />
-        <InputControlado 
-          onChange = {this.actualizar}
-          name = 'email'
-          placeholder='Tu E-mail...' 
-        />
+        <InputControlado />
       </div>
     );
   }
